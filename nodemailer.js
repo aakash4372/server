@@ -13,7 +13,7 @@ const sendMail = async (name, email, phone, message) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: email, // Sends email to the user who fills the form
+    to: process.env.EMAIL_USER, // Sends email to the user who fills the form
     subject: "Enquiry Received",
     text: `Hello ${name},\n\nThank you for your enquiry!\n\nDetails:\nPhone: ${phone}\nMessage: ${message}\n\nWe will contact you soon.\n\nBest Regards,\nYour Team`,
   };
