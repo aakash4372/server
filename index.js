@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-
+const sendMail = require('./nodemailer');
 dotenv.config();
 
 const app = express();
@@ -17,15 +17,18 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Education Server!');
 });
 app.post("/send-email", async (req, res) => {
-    const { name, email, type, phone, location } = req.body;
-  
-    try {
-      await sendMail(name, email, type, phone, location);
-      res.status(200).json({ message: "Email sent successfully!" });
-    } catch (error) {
-      res.status(500).json({ message: "Error sending email", error });
-    }
-  });
+  const { name, email, type, phone, location } = req.body;
+  console.log("Received Data:", req.body);
+
+  try {
+    await sendMail(name, email, type, phone, location);
+    res.status(200).json({ message: "Email sent successfully!" });
+  } catch (error) {
+    console.error("Email Error:", error); // Log the error details
+    res.status(500).json({ message: "Error sending email", error: error.message || error });
+  }
+});
+
   
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
