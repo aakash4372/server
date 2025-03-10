@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Education Server!');
 });
 
+//
 app.post("/send-email", async (req, res) => {
   const { name, email, phone, message } = req.body;
   console.log("Received Data:", req.body);
