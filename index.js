@@ -25,7 +25,7 @@ app.post("/send-email", async (req, res) => {
     await sendMail(name, email, phone, message);
     res.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
-    console.error("Email Error:", error); // Log the error details
+    console.error("Email Error:", error);
     res.status(500).json({ message: "Error sending email", error: error.message || error });
   }
 });
