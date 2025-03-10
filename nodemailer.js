@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
 
-const sendMail = async (name, email, type, phone, location) => {
+const sendMail = async (name, email, phone, message) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    secure:true,
+    secure: true,
     port: 465,
     auth: {
       user: process.env.EMAIL_USER, // Your Gmail
@@ -15,7 +15,7 @@ const sendMail = async (name, email, type, phone, location) => {
     from: process.env.EMAIL_USER,
     to: email, // Sends email to the user who fills the form
     subject: "Enquiry Received",
-    text: `Hello ${name},\n\nThank you for your enquiry!\n\nDetails:\nType: ${type}\nPhone: ${phone}\nLocation: ${location}\n\nWe will contact you soon.\n\nBest Regards,\nYour Team`,
+    text: `Hello ${name},\n\nThank you for your enquiry!\n\nDetails:\nPhone: ${phone}\nMessage: ${message}\n\nWe will contact you soon.\n\nBest Regards,\nYour Team`,
   };
 
   return transporter.sendMail(mailOptions);
