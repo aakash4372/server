@@ -16,12 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('Welcome to the Education Server!');
 });
+
 app.post("/send-email", async (req, res) => {
-  const { name, email, type, phone, location } = req.body;
+  const { name, email, phone, message } = req.body;
   console.log("Received Data:", req.body);
 
   try {
-    await sendMail(name, email, type, phone, location);
+    await sendMail(name, email, phone, message);
     res.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Email Error:", error); // Log the error details
@@ -29,7 +30,6 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-  
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
