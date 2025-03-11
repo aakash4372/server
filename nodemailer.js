@@ -47,7 +47,7 @@ const sendMail = async (name, email, phone, message) => {
             <p>For urgent inquiries, you can reply to this email or contact us directly at our official support.</p>
             <hr>
             <p>Best regards,</p>
-            <p><strong>Education Team</strong></p>
+            <p><strong>LEARNENG EDUCATION</strong></p>
             
         `,
   };
