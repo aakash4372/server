@@ -12,50 +12,54 @@ const sendMail = async (name, email, phone, message) => {
             },
         });
 
+        // Email to website owner
         const ownerMailOptions = {
-            from: `"Education Team" <${process.env.EMAIL_USER}>`,
+            from: process.env.EMAIL_USER,
             to: process.env.EMAIL_USER, 
             subject: "New Enquiry Received",
+            replyTo: email,
             html: `
-                <h3>New Enquiry Received</h3>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone}</p>
                 <p><strong>Message:</strong> ${message}</p>
                 <br>
-                <p>Best Regards,<br><strong>Education Team</strong></p>
+                <p>Regards,<br>Education Team</p>
             `,
         };
 
+        // Confirmation email to user
         const userMailOptions = {
-            from: `"Education Team" <${process.env.EMAIL_USER}>`, 
-            to: email, // User's Email
-            subject: "Thank You for Your Enquiry",
+            from: process.env.EMAIL_USER, 
+            to: email,
+            subject: "Your Enquiry Has Been Received",
+            replyTo: process.env.EMAIL_USER,
             html: `
-                <h3>Dear ${name},</h3>
-                <p>Thank you for reaching out! We have received your enquiry and will get back to you soon.</p>
-                <p><strong>Your Enquiry Details:</strong></p>
-                <ul>
-                    <li><strong>Phone:</strong> ${phone}</li>
-                    <li><strong>Message:</strong> ${message}</li>
-                </ul>
-                <p>If you need immediate assistance, feel free to contact us.</p>
+                <p>Dear ${name},</p>
+                <p>Thank you for contacting us. We have received your enquiry and will respond soon.</p>
+                <p><strong>Details Submitted:</strong></p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Message:</strong> ${message}</p>
+                <p>If you have any urgent queries, please reach out to us.</p>
                 <br>
-                <p>Best Regards,<br><strong>Education Team</strong></p>
+                <p>Best regards,</p>
+                <p>Education Team</p>
             `,
         };
 
-        
+        // Send email to owner
         await transporter.sendMail(ownerMailOptions);
-        console.log("Owner email sent successfully");
+        console.log("✅ Owner email sent successfully");
 
+        // Small delay to avoid bulk email issues
         await new Promise(resolve => setTimeout(resolve, 2000));
 
+        // Send confirmation email to user
         await transporter.sendMail(userMailOptions);
-        console.log("User email sent successfully");
+        console.log("✅ User email sent successfully");
 
     } catch (error) {
-        console.error("Nodemailer Error:", error);
+        console.error("❌ Email Error:", error);
         throw new Error("Failed to send email");
     }
 };

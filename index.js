@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Test Route
 app.get('/', (req, res) => {
-    res.send('Welcome to the Education Server!');
+    res.send('Welcome to the Education Server!!');
 });
 
 // Email Sending Route
